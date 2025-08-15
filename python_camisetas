@@ -1,0 +1,77 @@
+#mensagem de boas vindas
+print('Bem vindo a Fábrica de Camisetas do Adailton Pereira :)')
+print(' ')
+print('MCS - Manga Curta Simples')
+print('MLS - Manga Longa Simples')
+print('MCE - Manga Curta Com Estampa')
+print('MLE - Manga Longa Com Estampa')
+print(' ')
+
+#função em que pergunta o modelo e retorna o valor do modelo
+def escolha_modelo():
+    while True:
+     modelo = input('Entre com o modelo desejado: ').upper()
+     if modelo == "MCS":
+         return 1.80
+     elif modelo == "MLS":
+         return 2.10
+     elif modelo == "MCE":
+         return 2.90
+     elif modelo == "MLE":
+         return 3.20
+     else:
+         print('Escolha inválida, tente novamente.')
+         print(' ')
+
+#Função em que pergunta a quantidade de camisetas
+def num_camisetas():
+    while True:
+        try:
+            quantidade = int(input("Digite o número de camisetas: "))
+            if quantidade > 20000:
+                print("Não aceitamos tantas camisetas de uma vez.")
+                print("Por favor, entre com o quantidade novamente.")
+                print(' ')
+                continue
+            elif quantidade < 20:
+                return quantidade  # sem desconto nas camisetas
+            elif quantidade < 200:
+                return quantidade - (quantidade * 5/100)  # representação dos 5% de desconto
+            elif quantidade < 2000:
+                return quantidade - (quantidade * 7/100)  #representação dos 7% de desconto
+            else:  
+                return quantidade - (quantidade * 12/100)  # representção dos 12% de desconto
+        except ValueError:
+            print("Você precisa digitar um número inteiro.") #caso o usuário digite um valor não inteiro
+            print(' ')
+
+#função do frete, em que pede uma opção e o usuário retorna um número
+def frete():
+    print('1 - Frete por transportadora - R$ 100.00')
+    print('2 - Frete por Sedex - R$ 200.00')
+    print('0 - Retirar o pedido na fábrica - R$ 0.00')
+    print(' ')
+    while True:
+        opcao_frete = input('Escolha o tipo de frete: ').upper() #o usuário vai escolher uma opção e vai retornar o valor correspondente
+        if opcao_frete == "1":
+            return 100
+        elif opcao_frete == "2":
+            return 200
+        elif opcao_frete == "0":
+            return 0
+        else:
+         print('Opção inválida. Tente novamente.') #caso o usuário digite outra coisa além das opções disponíveis
+         print(' ')
+        
+#Programa principal
+#invocação das funções criadas
+#Tenta executar tudo isso, caso dê erro, a mensagem de erro irá aparecer
+try:
+    modelo = escolha_modelo()
+    quantidade = num_camisetas()
+    valor_frete = frete()
+    total = (modelo * quantidade)+ valor_frete
+    print(f'Total: R$ {total} (Modelo: {modelo} * Quantidade(com desconto): {quantidade} + Frete: {valor_frete})') #fórmula que calcula o valor total baseado na quantidade, no frete etc.
+    print("OBRIGADO PELA PREFERÊNCIA! VOLTE SEMPRE :)")
+except:
+    print('Ocorreu um erro, desculpe.') #se alguma coisa no try der errado, isso irá aparecer
