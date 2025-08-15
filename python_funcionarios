@@ -1,0 +1,107 @@
+#mensagem de boas vindas
+print('Bem-vindo a Empresa do Adailton Pereira :)')
+print('-' * 42)
+
+#Lista e variável igual ao RU
+lista_funcionarios = []
+id_global = 5222029
+
+#Função que realiza o cadastro de um funcionário
+def cadastrar_funcionario(id):
+    print('--------- MENU CADASTRAR FUNCIONÁRIO ----------')
+    print(f'Entre com o id do funcionário: {id}') #ID já definido com a variável id_global
+    nome = input("Entre com o nome do funcionário: ")
+    setor = input("Entre com o setor do funcionário: ")
+    salario = float(input("Entre com o salário do funcionário: "))
+    funcionario = {'id':id, 'nome':nome, 'setor':setor, 'salário':salario}
+    lista_funcionarios.append(funcionario.copy()) #Copia para o dicionário
+    print('Funcionário cadastrado com sucesso!')
+    print(f'Esse é o nome e o id do funcionário cadastrado. Nome: {nome} Id: {id}')
+    print(' ')
+
+#Função que consulta os funcionários cadastrados de acordo com o nome, setor e id
+def consultar_funcionarios():
+    while True:
+        print('--------- MENU CONSULTAR FUNCIONÁRIO ----------')
+        print('1 - Consultar todos os funcionários')
+        print('2 - Consultar todos os funcionários por id')
+        print('3 - Consultar todos os funcionários por setor')
+        print('4 - Retornar ao menu')
+
+        opcao_consulta = input('Entre com a opção desejada de consulta: ')
+
+        if opcao_consulta == '1':
+          if not lista_funcionarios: #Caso não tenha nenhum funcionário cadastrado com o nome digitado
+            print('Não há funcionátios cadastrados. \n')
+            return
+          for funcionario in lista_funcionarios:
+            for chave in funcionario:
+             print(f'{chave}: {funcionario[chave]}')
+            print(' ')
+
+        elif opcao_consulta == '2':
+         if not lista_funcionarios: #Caso não tenha nenhum funcionário cadastrado com o id digitado
+          print('Não há funcionários cadastradows. \n')
+          return
+         pedir_id = int(input('Entre com o id do funcionario: ')) 
+         for funcionario in lista_funcionarios:
+            if funcionario["id"] == pedir_id:
+             for chave in funcionario:
+              print(f'{chave}: {funcionario[chave]}')
+
+        elif opcao_consulta == '3':
+            if not lista_funcionarios:
+             print('Não há funcionários cadastrados. \n') 
+             return
+            pedir_setor = input('Entre com o setor: ')
+            setores_encontrados = [f for f in lista_funcionarios if f["setor"] == pedir_setor]
+            if setores_encontrados:
+                print(f'\nFuncionarios no setor {pedir_setor}:')
+                for funcionario in setores_encontrados:
+                    for chave in funcionario:
+                        print(f'{chave}: {funcionario[chave]}')
+                    print(' ')
+            else:
+                print('Nenhum funcionario encontrado nesse setor') #Se não tiver alguém no setor digitado
+
+        elif opcao_consulta == '4': #Sai desse menu e volta para o menu de cadastro
+            return
+        else:
+            print('Opção inválida. Tente novamente.')
+
+#Função de remover funcionário
+def remover_funcionario():
+      while True:
+        pedir_id = int(input('Entre com o id do funcionario a ser removido: '))
+        for funcionario in lista_funcionarios:
+          if funcionario["id"] == pedir_id: #Será apagado quem tiver o id igual ao que foi digitado
+            print('Funcionário removido com sucesso!')
+            lista_funcionarios.remove(funcionario)
+            return
+        print('Id inválido') #Caso digitem um id inexistente na lista de cadastros
+ 
+#Programa principal
+while True:
+    print(' ')
+    print('-------------- MENU PRINCIPAL ------------')
+    print(' ')
+    print('1 - Cadastrar Funcionários')
+    print('2 - Consultar Funcionário(s)')
+    print('3 - Remover Funcionário')
+    print('4 - Sair')
+    print(' ')
+
+#Aqui será a invocação das funções, onde de acordo com o que o usuário digitar tal coisa irá acontecer
+    opcao = input('Escolha uma opção: ')
+    if opcao == '1':
+        cadastrar_funcionario(id_global)
+        id_global += 1
+    elif opcao == '2':
+        consultar_funcionarios()
+    elif opcao == '3':
+        remover_funcionario()
+    elif opcao == '4':
+        break
+    else:
+      print("Opção inválida. Tente novamente") #Caso o número digitado não for 1, 2, 3 ou 4
+print(lista_funcionarios)
